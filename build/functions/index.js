@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onionTypes = exports.userObj = exports.getLoggedFunc = exports.setLoggedFunc = exports.getIDRandom = void 0;
+exports.exampleType = exports.onionTypes = exports.userObj = exports.getLoggedFunc = exports.setLoggedFunc = exports.getIDRandom = void 0;
 // basic düzey bir type fonksiyon
 const getIDRandom = (min, max) => {
     min = Math.min(min);
@@ -38,3 +38,7 @@ function onionTypes(value) {
     // return value.toUpperCase() // bu hata verecektir tür string mi number mı bilemiyoruz
 }
 exports.onionTypes = onionTypes;
+function exampleType(user) {
+    return user;
+}
+exports.exampleType = exampleType;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.object = exports.obj = exports.Z_object = exports.Y_object = exports.X_object = exports.CarType = void 0;
+exports.StyleBox = exports.Size3D = exports.Position = exports.EXTREME_OBJECT_CLASS = exports.OBJECTEXAMPLE = exports.OBJECT = exports.Z_object = exports.Y_object = exports.X_object = exports.CarType = void 0;
 var CarType;
 (function (CarType) {
     CarType["Renault"] = "Renault";
@@ -22,7 +22,7 @@ exports.Z_object = {
         border: null
     }
 };
-// class Model Exmple
+// class Model Example
 class OBJECTEXAMPLE {
     constructor({ x, y, z, width, height, depth }) {
         this.x = 0;
@@ -48,11 +48,15 @@ class OBJECTEXAMPLE {
         return this.getObject;
     }
 }
+exports.OBJECTEXAMPLE = OBJECTEXAMPLE;
 class OBJECT {
     constructor({ x, y, z, width, height, depth, background, radius, border }) {
+        // class properties are defined
         this.position = { x: 0, y: 0, z: 0 };
         this.size = { width: 0, height: 0, depth: 0 };
         this.body = { background: null, radius: 0, border: null };
+        // really private properties 
+        this.prevState = Object.assign({}, this.getObject());
         this.position = { x, y, z };
         this.size = { width, height, depth };
         this.body = {
@@ -68,18 +72,68 @@ class OBJECT {
             body: Object.assign({}, this.body)
         };
     }
-    setPosition({ x, y, z }) {
-        this.position = { x, y, z };
+    setPosition(updateFunc) {
+        const updateData = updateFunc(Object.assign({}, this.prevState.position));
+        this.position = updateData;
+        return this.getObject();
+    }
+    setSize(updateFunc) {
+        const updateData = updateFunc(Object.assign({}, this.prevState.size));
+        this.size = updateData;
+        return this.getObject();
+    }
+    setBody(updateFunct) {
+        const updateData = updateFunct(Object.assign({}, this.prevState.body));
+        this.body = updateData;
         return this.getObject();
     }
 }
-const exampleObjectModel = {
-    x: 10,
-    y: 5,
-    z: 10,
-    width: 100,
-    height: 100,
-    depth: 100
-};
-exports.obj = new OBJECTEXAMPLE(Object.assign({}, exampleObjectModel));
-exports.object = new OBJECT(Object.assign({}, exampleObjectModel));
+exports.OBJECT = OBJECT;
+class Position {
+    constructor({ x, y, z }) {
+        this.position = { x: 0, y: 0, z: 0 };
+        this.position = { x, y, z };
+    }
+    getPosition() {
+        return this.position;
+    }
+    setPosition(updateFunc) {
+        const updatePosition = updateFunc(this.position);
+        this.position = updatePosition;
+        return this.getPosition();
+    }
+}
+exports.Position = Position;
+class Size3D {
+    constructor({ width, height, depth }) {
+        this.size = { width: 0, height: 0, depth: 0 };
+        this.size = { width, height, depth };
+    }
+    getSize() {
+        return this.size;
+    }
+    setSize(updateFunc) {
+        const updateSize = updateFunc(this.size);
+        this.size = updateSize;
+        return this.getSize();
+    }
+}
+exports.Size3D = Size3D;
+class StyleBox {
+    constructor({ background, radius, border }) {
+        this.style = { background: '', radius: 0, border: '' };
+        this.style = { background, radius, border };
+    }
+    getStyle() {
+        return this.style;
+    }
+    setStyle(updateFunc) {
+        const updateStyle = updateFunc(this.style);
+        this.style = updateStyle;
+        return this.getStyle();
+    }
+}
+exports.StyleBox = StyleBox;
+class EXTREME_OBJECT_CLASS extends Position, Size3D, StyleBox {
+}
+exports.EXTREME_OBJECT_CLASS = EXTREME_OBJECT_CLASS;

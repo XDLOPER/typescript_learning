@@ -37,7 +37,15 @@ export function onionTypes(value:string | number):string | number{
 }
 
 
+type User = {
+     name:string,
+     surname:string,
+     age:number
+}
 
+export function exampleType (user:User):User{
+     return user
+}
 
 
 
